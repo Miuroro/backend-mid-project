@@ -31,7 +31,7 @@ class TicketServiceTest {
         projectRepository = Mockito.mock(ProjectRepository.class);
         emailService = Mockito.mock(EmailService.class);
 
-        // Pass all 3 mocks so the constructor matches your service file exactly
+        // Pass all 3 mocks so the constructor matches the service file exactly
         ticketService = new TicketService(ticketRepository, userRepository, projectRepository, emailService);
     }
 
