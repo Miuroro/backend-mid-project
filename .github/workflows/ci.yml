@@ -21,6 +21,5 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Build with Maven
-        # im using -DskipTests for now the DB environment variables aren't on GitHub runner yet
-        run: mvn clean package -DskipTests
+      - name: Build and test with Maven
+        run: mvn clean verify
