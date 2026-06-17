@@ -23,7 +23,7 @@ public class TicketService {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
-    private final EmailService emailService; // <-- Add this dependency
+    private final EmailService emailService;
 
     public TicketService(TicketRepository ticketRepository, UserRepository userRepository, ProjectRepository projectRepository, EmailService emailService) {
         this.ticketRepository = ticketRepository;
@@ -151,13 +151,13 @@ public class TicketService {
 
     private void triggerEmailAlert(Long ticketId, String title, String status) {
         try {
-            // 1. Fetch the real assigned user IDs from your database repository
+            // Fetch the assigned user IDs from the database repository
             List<Long> assigneeIds = ticketRepository.findAssigneeIdsByTicketId(ticketId);
 
-            // 2. Look up each user in the database and pull their real names
+            // Look up each user in the database and pull their real names
             List<String> assigneeNames = assigneeIds.stream()
                     .map(id -> userRepository.findById(id).orElse(null))
-                    .filter(user -> user != null && user.getName() != null) // Assumes your User model has a getName() or getUsername() method!
+                    .filter(user -> user != null && user.getName() != null)
                     .map(user -> user.getName())
                     .toList();
             // my email for Resend

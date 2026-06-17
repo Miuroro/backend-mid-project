@@ -67,7 +67,7 @@ public class EmailService {
                 </div>
             </body>
             </html>
-            """.formatted(ticketId, title, status, assigneesText); // <-- Added assigneesText here
+            """.formatted(ticketId, title, status, assigneesText);
 
         // Prepare the JSON body payload required by Resend's API specification
         Map<String, Object> payload = Map.of(
