@@ -11,6 +11,8 @@ public class TicketDTO {
     private String title;
 
     private String description;
+    @NotBlank(message = "Status is required")
+    @jakarta.validation.constraints.Pattern(regexp = "(?i)^(open|in progress|closed)$", message = "Status must be open, in progress, or closed")
     private String status;
 
     @NotNull(message = "Project ID is required")

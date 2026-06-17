@@ -2,6 +2,7 @@ package net.hackyourfuture.tickettrackingsystem.repository;
 
 import net.hackyourfuture.tickettrackingsystem.dto.ProjectDTO;
 import net.hackyourfuture.tickettrackingsystem.exceptions.DatabaseAccessException;
+import net.hackyourfuture.tickettrackingsystem.models.Project;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProjectRepository {
@@ -53,6 +55,25 @@ public class ProjectRepository {
             throw new DatabaseAccessException("Database error fetching project summaries", e);
         }
         return projects;
+    }
+
+    public Optional<Project> findById(Long id) {
+        String sql = "SELECT id, name FROM projects WHERE id = ?;";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(new Project(rs.getLong("id"), rs.getString("name")));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseAccessException("Database error fetching project by id", e);
+        }
+
+        return Optional.empty();
     }
 
 }
