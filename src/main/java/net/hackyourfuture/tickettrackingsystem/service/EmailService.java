@@ -1,5 +1,6 @@
 package net.hackyourfuture.tickettrackingsystem.service;
 
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,12 +15,13 @@ import java.util.Map;
 public class EmailService {
 
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
-    private final RestClient restClient;
+    private RestClient restClient;
 
     @Value("${resend.api.key}")
     private String apiKey;
 
-    public EmailService() {
+    @PostConstruct
+    public void init() {
         this.restClient = RestClient.builder()
                 .baseUrl("https://api.resend.com")
                 .build();
