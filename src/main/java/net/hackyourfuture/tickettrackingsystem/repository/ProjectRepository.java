@@ -54,27 +54,4 @@ public class ProjectRepository {
         }
         return projects;
     }
-<<<<<<< Updated upstream
-=======
-    // get project by id
-    public Optional<Project> findById(Long id) {
-        String sql = "SELECT id, name FROM projects WHERE id = ?;";
-
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setLong(1, id);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return Optional.of(new Project(rs.getLong("id"), rs.getString("name")));
-                }
-            }
-        } catch (SQLException e) {
-            throw new DatabaseAccessException("Database error fetching project by id", e);
-        }
-
-        return Optional.empty();
-    }
->>>>>>> Stashed changes
-
 }
