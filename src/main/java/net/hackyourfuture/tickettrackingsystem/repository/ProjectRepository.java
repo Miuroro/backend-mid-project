@@ -22,7 +22,7 @@ public class ProjectRepository {
     public ProjectRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-
+    // get all projects
     public List<ProjectDTO> findAllWithTicketCounts() {
         List<ProjectDTO> projects = new ArrayList<>();
 
@@ -56,7 +56,7 @@ public class ProjectRepository {
         }
         return projects;
     }
-
+  // get project by id
     public Optional<Project> findById(Long id) {
         String sql = "SELECT id, name FROM projects WHERE id = ?;";
 
